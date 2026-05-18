@@ -1,41 +1,27 @@
 {
-  "name": "controle-estoque-desktop",
+  "name": "controle-estoque",
   "private": true,
   "version": "1.0.0",
-  "main": "electron.js",
+  "main": "./electron.js",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 5173",
-    "server": "json-server --watch db.json --host 127.0.0.1 --port 3001",
-    "electron-start": ".\\node_modules\\.bin\\electron.cmd .",
-    "start": "concurrently \"npm run server\" \"npm run dev\" \"wait-on http://127.0.0.1:5173 && .\\node_modules\\.bin\\electron.cmd .\"",
-    "desktop": ".\\node_modules\\.bin\\electron.cmd .",
-    "dist": "electron-builder"
+    "start": "vite --host 0.0.0.0 --port 5173",
+    "build": "vite build",
+    "preview": "vite preview",
+    "desktop": ".\\node_modules\\.bin\\electron.cmd ./electron.js"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "concurrently": "latest",
-    "json-server": "^0.17.4",
-    "react": "latest",
-    "react-dom": "latest",
-    "vite": "latest",
-    "wait-on": "latest"
+    "@supabase/supabase-js": "^2.49.8",
+    "@vitejs/plugin-react": "^4.4.1",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "vite": "^6.3.5",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "electron": "latest",
-    "electron-builder": "latest"
-  },
-  "build": {
-    "appId": "com.controle.estoque",
-    "productName": "Controle de Estoque",
-    "directories": {
-      "output": "dist"
-    },
-    "win": {
-      "target": "nsis"
-    }
-  "jspdf": "^3.0.1",
-"jspdf-autotable": "^5.0.2",
-"xlsx": "^0.18.5"
-  
+    "electron": "^36.3.2",
+    "electron-builder": "^26.0.12"
   }
 }
