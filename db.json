@@ -1,0 +1,108 @@
+{
+  "produtos": [],
+  "historico": [
+    {
+      "produto": "RESMAS",
+      "patrimonio": "SECG",
+      "codigo": "1555112000544",
+      "tipo": "entrada",
+      "quantidade": 50,
+      "setorOrigem": "AMOX",
+      "setorDestino": "-",
+      "usuario": "Administrador",
+      "assinatura": "SECG - SPL - ROBSON",
+      "dataHora": "14/05/2026, 12:54:27",
+      "id": 1
+    },
+    {
+      "produto": "RESMAS",
+      "patrimonio": "SECG",
+      "codigo": "1555112000544",
+      "tipo": "saída",
+      "quantidade": 40,
+      "setorOrigem": "AMOX",
+      "setorDestino": "SECG - GABINETE",
+      "usuario": "Administrador",
+      "assinatura": "CASSIA",
+      "dataHora": "14/05/2026, 12:54:57",
+      "id": 2
+    },
+    {
+      "produto": "resma",
+      "patrimonio": "secg",
+      "codigo": "1022500054515",
+      "tipo": "entrada",
+      "quantidade": 50,
+      "setorOrigem": "amox",
+      "setorDestino": "-",
+      "usuario": "Administrador",
+      "assinatura": "spl - robson",
+      "dataHora": "14/05/2026, 13:07:35",
+      "id": 3
+    },
+    {
+      "produto": "resma",
+      "patrimonio": "secg",
+      "codigo": "1022500054515",
+      "tipo": "saída",
+      "quantidade": 40,
+      "setorOrigem": "amox",
+      "setorDestino": "ddss",
+      "usuario": "Administrador",
+      "assinatura": "dfefefe",
+      "dataHora": "14/05/2026, 13:08:16",
+      "id": 4
+    },
+    {
+      "produto": "Resma de Papel A4",
+      "patrimonio": "SECG",
+      "codigo": "1100110904654",
+      "tipo": "entrada",
+      "quantidade": 50,
+      "setorOrigem": "Almoxarifado",
+      "setorDestino": "-",
+      "usuario": "Administrador",
+      "assinatura": "Robson - SPL",
+      "dataHora": "14/05/2026, 13:49:07",
+      "id": 5
+    },
+    {
+      "produto": "Resma de Papel A4",
+      "patrimonio": "SECG",
+      "codigo": "1100110904654",
+      "tipo": "entrada",
+      "quantidade": 50,
+      "setorOrigem": "Almoxarifado",
+      "setorDestino": "-",
+      "usuario": "Administrador",
+      "assinatura": "Neila - Almoxarifado",
+      "dataHora": "14/05/2026, 13:49:27",
+      "id": 6
+    },
+    {
+      "produto": "Resma de Papel A4",
+      "patrimonio": "SECG",
+      "codigo": "1100110904654",
+      "tipo": "saída",
+      "quantidade": 50,
+      "setorOrigem": "Almoxarifado",
+      "setorDestino": "SEMAM",
+      "usuario": "Administrador",
+      "assinatura": "Julio - Sub secretario",
+      "dataHora": "14/05/2026, 13:49:56",
+      "id": 7
+    }
+  ],
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Administrador",
+      "usuario": "admin",
+      "senha": "admin123",
+      "funcao": "Administrador",
+      "setor": "Gestão",
+      "tipo": "admin"
+    }
+  ],
+  "backups": []
+}

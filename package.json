@@ -1,0 +1,37 @@
+{
+  "name": "controle-estoque-desktop",
+  "private": true,
+  "version": "1.0.0",
+  "main": "electron.js",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "server": "json-server --watch db.json --host 127.0.0.1 --port 3001",
+    "electron-start": ".\\node_modules\\.bin\\electron.cmd .",
+    "start": "concurrently \"npm run server\" \"npm run dev\" \"wait-on http://127.0.0.1:5173 && .\\node_modules\\.bin\\electron.cmd .\"",
+    "desktop": ".\\node_modules\\.bin\\electron.cmd .",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "concurrently": "latest",
+    "json-server": "^0.17.4",
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest",
+    "wait-on": "latest"
+  },
+  "devDependencies": {
+    "electron": "latest",
+    "electron-builder": "latest"
+  },
+  "build": {
+    "appId": "com.controle.estoque",
+    "productName": "Controle de Estoque",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  }
+}
