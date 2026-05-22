@@ -676,14 +676,7 @@ const produtosRecentes = [...produtos]
   </>
 )}
 
-{podeAdministrar && (
-  <button
-    type="button"
-    onClick={() => abrirEdicaoProduto(produto)}
-  >
-    Editar
-  </button>
-)}
+
 
                     {podeGerenciar && (
                       <button type="button" onClick={() => excluirProduto(produto.id)}>Excluir</button>
