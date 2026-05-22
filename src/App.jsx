@@ -845,6 +845,123 @@ const produtosRecentes = [...produtos]
       {movimento.produto.observacao ||
         "Sem observação cadastrada."}
     </p>
+
+    </div>
+)}
+
+{produtoEditando && (
+  <div className="modal">
+    <div className="modal-content">
+      <h2>Editar Produto</h2>
+
+      <form onSubmit={salvarEdicaoProduto}>
+        <input
+          type="text"
+          placeholder="Nome"
+          value={produtoEditando.nome}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              nome: e.target.value
+            })
+          }
+        />
+
+        <input
+          type="text"
+          placeholder="Setor"
+          value={produtoEditando.setor}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              setor: e.target.value
+            })
+          }
+        />
+
+        <input
+          type="number"
+          placeholder="Quantidade"
+          value={produtoEditando.quantidade}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              quantidade: e.target.value
+            })
+          }
+        />
+
+        <input
+          type="number"
+          placeholder="Mínimo"
+          value={produtoEditando.minimo}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              minimo: e.target.value
+            })
+          }
+        />
+
+        <input
+          type="text"
+          placeholder="Patrimônio"
+          value={produtoEditando.patrimonio}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              patrimonio: e.target.value
+            })
+          }
+        />
+
+        <input
+          type="text"
+          placeholder="Código"
+          value={produtoEditando.codigo}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              codigo: e.target.value
+            })
+          }
+        />
+
+        <input
+          type="text"
+          placeholder="Tipo de Material"
+          value={produtoEditando.tipo_material}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              tipo_material: e.target.value
+            })
+          }
+        />
+
+        <textarea
+          placeholder="Observação"
+          value={produtoEditando.observacao}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              observacao: e.target.value
+            })
+          }
+        />
+
+        <button type="submit">
+          Salvar Alterações
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setProdutoEditando(null)}
+        >
+          Cancelar
+        </button>
+      </form>
+    </div>
   </div>
 )}
 
