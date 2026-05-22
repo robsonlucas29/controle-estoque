@@ -19,6 +19,7 @@ export default function App() {
   const [qtdMovimento, setQtdMovimento] = useState("");
   const [setorDestino, setSetorDestino] = useState("");
   const [assinatura, setAssinatura] = useState("");
+  const [produtoEditando, setProdutoEditando] = useState(null);
 
   const [form, setForm] = useState({
     nome: "",
@@ -438,6 +439,54 @@ export default function App() {
       }
     }
   }
+  function abrirEdicaoProduto(produto) {
+  if (!podeAdministrar) {
+    alert("Apenas administrador pode editar produtos.");
+    return;
+  }
+
+  setProdutoEditando({
+    id: produto.id,
+    nome: produto.nome || "",
+    setor: produto.setor || "",
+    quantidade: produto.quantidade || "",
+    minimo: produto.minimo || "",
+    patrimonio: produto.patrimonio || "",
+    codigo: produto.codigo || "",
+    tipo_material: produto.tipo_material || "",
+    observacao: produto.observacao || ""
+  });
+}
+
+async function salvarEdicaoProduto(e) {
+  e.preventDefault();
+
+  if (!produtoEditando) return;
+
+  const { error } = await supabase
+    .from("produtos")
+    .update({
+      nome: produtoEditando.nome,
+      setor: produtoEditando.setor,
+      quantidade: Number(produtoEditando.quantidade),
+      minimo: Number(produtoEditando.minimo),
+      patrimonio: produtoEditando.patrimonio,
+      codigo: produtoEditando.codigo,
+      tipo_material: produtoEditando.tipo_material,
+      observacao: produtoEditando.observacao
+    })
+    .eq("id", produtoEditando.id);
+
+  if (error) {
+    alert("Erro ao editar produto.");
+    return;
+  }
+
+  setProdutoEditando(null);
+  carregarProdutos();
+
+  alert("Produto atualizado com sucesso.");
+}
 
   if (!usuarioLogado) {
     return (
@@ -813,6 +862,138 @@ const produtosRecentes = [...produtos]
           </div>
         </div>
       )}
+    {produtoEditando && (
+  <div
+    style={{
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,0.4)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 9999
+    }}
+  >
+    <div
+      style={{
+        background: temaEscuro ? "#1e293b" : "white",
+        color: temaEscuro ? "white" : "black",
+        padding: 25,
+        borderRadius: 12,
+        width: 420,
+        maxHeight: "90vh",
+        overflowY: "auto"
+      }}
+    >
+      <h2>Editar produto</h2>
+
+      <form onSubmit={salvarEdicaoProduto}>
+        <input
+          placeholder="Nome do produto"
+          value={produtoEditando.nome}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              nome: e.target.value
+            })
+          }
+          required
+        />
+
+        <input
+          placeholder="Setor"
+          value={produtoEditando.setor}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              setor: e.target.value
+            })
+          }
+          required
+        />
+
+        <input
+          type="number"
+          placeholder="Quantidade"
+          value={produtoEditando.quantidade}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              quantidade: e.target.value
+            })
+          }
+          required
+        />
+
+        <input
+          type="number"
+          placeholder="Estoque mínimo"
+          value={produtoEditando.minimo}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              minimo: e.target.value
+            })
+          }
+          required
+        />
+
+        <input
+          placeholder="Patrimônio/Tombo"
+          value={produtoEditando.patrimonio}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              patrimonio: e.target.value
+            })
+          }
+        />
+
+        <input
+          placeholder="Código de barras / QR Code"
+          value={produtoEditando.codigo}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              codigo: e.target.value
+            })
+          }
+        />
+
+        <input
+          placeholder="Tipo de material"
+          value={produtoEditando.tipo_material}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              tipo_material: e.target.value
+            })
+          }
+        />
+
+        <textarea
+          placeholder="Observação"
+          value={produtoEditando.observacao}
+          onChange={(e) =>
+            setProdutoEditando({
+              ...produtoEditando,
+              observacao: e.target.value
+            })
+          }
+        />
+
+        <button type="submit">Salvar alterações</button>
+
+        <button
+          type="button"
+          onClick={() => setProdutoEditando(null)}
+        >
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+)}
     </div>
   );
 }
