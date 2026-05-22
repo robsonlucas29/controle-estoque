@@ -661,10 +661,17 @@ const produtosRecentes = [...produtos]
   type="button"
   onClick={() => setMovimento({ produto, tipo: "detalhes" })}
 >
-  Ver
+  Detalhes
 </button>
-                      </>
-                    )}
+
+{podeAdministrar && (
+  <button
+    type="button"
+    onClick={() => abrirEdicaoProduto(produto)}
+  >
+    Editar
+  </button>
+)}
 
                     {podeGerenciar && (
                       <button type="button" onClick={() => excluirProduto(produto.id)}>Excluir</button>
