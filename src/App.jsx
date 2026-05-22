@@ -26,6 +26,7 @@ export default function App() {
     quantidade: "",
     minimo: "",
     patrimonio: "",
+    tipo_material: "",
     codigo: "",
     observacao: ""
   });
@@ -165,6 +166,7 @@ export default function App() {
       minimo: Number(form.minimo),
       patrimonio: form.patrimonio,
       codigo: form.codigo || `COD-${Date.now()}`,
+      tipo_material: form.tipo_material,
       observacao: form.observacao
     });
 
@@ -179,6 +181,7 @@ export default function App() {
       quantidade: "",
       minimo: "",
       patrimonio: "",
+      tipo_material: "",
       codigo: "",
       observacao: ""
     });
@@ -558,6 +561,13 @@ const produtosRecentes = [...produtos]
               <input type="number" placeholder="Estoque mínimo" value={form.minimo} onChange={(e) => setForm({ ...form, minimo: e.target.value })} required />
               <input placeholder="Patrimônio/Tombo" value={form.patrimonio} onChange={(e) => setForm({ ...form, patrimonio: e.target.value })} />
               <input placeholder="Código de barras / QR Code" value={form.codigo} onChange={(e) => setForm({ ...form, codigo: e.target.value })} />
+             <input
+  placeholder="Tipo de material"
+  value={form.tipo_material}
+  onChange={(e) =>
+    setForm({ ...form, tipo_material: e.target.value })
+  }
+/>
               <textarea placeholder="Observação" value={form.observacao} onChange={(e) => setForm({ ...form, observacao: e.target.value })} />
               <button type="submit">Cadastrar</button>
             </form>
@@ -598,6 +608,12 @@ const produtosRecentes = [...produtos]
                       <>
                         <button type="button" onClick={() => abrirMovimento(produto, "entrada")}>Entrada</button>
                         <button type="button" onClick={() => abrirMovimento(produto, "saída")}>Saída</button>
+                        <button
+  type="button"
+  onClick={() => setMovimento({ produto, tipo: "detalhes" })}
+>
+  Ver
+</button>
                       </>
                     )}
 
@@ -730,14 +746,16 @@ const produtosRecentes = [...produtos]
             width: 360
           }}>
             <h2>
-              {movimento.tipo === "entrada"
-                ? "Entrada de produto"
-                : movimento.tipo === "saída"
-                ? "Saída de produto"
-                : movimento.tipo === "excluirUsuario"
-                ? "Excluir usuário"
-                : "Excluir produto"}
-            </h2>
+  {movimento.tipo === "entrada"
+    ? "Entrada de produto"
+    : movimento.tipo === "saída"
+    ? "Saída de produto"
+    : movimento.tipo === "detalhes"
+    ? "Detalhes do produto"
+    : movimento.tipo === "excluirUsuario"
+    ? "Excluir usuário"
+    : "Excluir produto"}
+</h2>
 
             <p>
               <strong>
@@ -746,6 +764,33 @@ const produtosRecentes = [...produtos]
                   : movimento.produto.nome}
               </strong>
             </p>
+            {movimento.tipo === "detalhes" && (
+  <div>
+    <p>
+      <strong>Tipo de material:</strong>{" "}
+      {movimento.produto.tipo_material || "-"}
+    </p>
+
+    <p>
+      <strong>Patrimônio/Tombo:</strong>{" "}
+      {movimento.produto.patrimonio || "-"}
+    </p>
+
+    <p>
+      <strong>Código:</strong>{" "}
+      {movimento.produto.codigo || "-"}
+    </p>
+
+    <p>
+      <strong>Observação:</strong>
+    </p>
+
+    <p>
+      {movimento.produto.observacao ||
+        "Sem observação cadastrada."}
+    </p>
+  </div>
+)}
 
             {(movimento.tipo === "excluir" || movimento.tipo === "excluirUsuario") && (
               <p>Confirma a exclusão?</p>
