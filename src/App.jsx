@@ -661,8 +661,20 @@ const produtosRecentes = [...produtos]
   type="button"
   onClick={() => setMovimento({ produto, tipo: "detalhes" })}
 >
-  Detalhes
+  Ver
 </button>
+
+{usuarioLogado?.tipo === "admin" && (
+  <button
+    type="button"
+    onClick={() => abrirEdicaoProduto(produto)}
+  >
+    Editar
+  </button>
+)}
+
+  </>
+)}
 
 {podeAdministrar && (
   <button
