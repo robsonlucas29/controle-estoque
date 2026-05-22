@@ -452,14 +452,16 @@ export default function App() {
       </div>
     );
   }
-
+const produtosRecentes = [...produtos]
+  .sort((a, b) => b.id - a.id)
+  .slice(0, 10);
   const filtrados = produtos.filter(
     (p) =>
       p.nome.toLowerCase().includes(busca.toLowerCase()) ||
       String(p.codigo || "").toLowerCase().includes(busca.toLowerCase()) ||
       String(p.patrimonio || "").toLowerCase().includes(busca.toLowerCase())
   );
-
+  const filtradosLimitados = filtrados.slice(0, 15);
   const total = produtos.reduce((soma, p) => soma + Number(p.quantidade), 0);
   const baixo = produtos.filter((p) => Number(p.quantidade) <= Number(p.minimo)).length;
 
@@ -526,7 +528,7 @@ export default function App() {
 
         <h3>Quantidade por produto</h3>
 
-        {produtos.map((produto) => (
+        {produtosRecentes.map((produto) => (
           <div key={produto.id} style={{ marginBottom: 12 }}>
             <strong>{produto.nome}</strong>
             <div style={{ background: "#e5e7eb", borderRadius: 10, overflow: "hidden", marginTop: 5 }}>
@@ -582,7 +584,7 @@ export default function App() {
             </thead>
 
             <tbody>
-              {filtrados.map((produto) => (
+              {filtradosLimitados.map((produto) => (
                 <tr key={produto.id}>
                   <td>{produto.nome}</td>
                   <td>{produto.setor}</td>
