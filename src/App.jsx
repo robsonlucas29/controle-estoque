@@ -506,7 +506,7 @@ async function salvarEdicaoProduto(e) {
   }
 const produtosRecentes = [...produtos]
   .sort((a, b) => b.id - a.id)
-  .slice(0, 10);
+  .slice(0, 5);
   const filtrados = produtos.filter(
     (p) =>
       p.nome.toLowerCase().includes(busca.toLowerCase()) ||
