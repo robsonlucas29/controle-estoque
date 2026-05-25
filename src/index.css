@@ -305,3 +305,13 @@ section:has(h2) {
   min-width: 900px;
   width: 100%;
 }
+body.usuario .itens-estoque {
+  width: calc(100vw - 48px) !important;
+  max-width: calc(100vw - 48px) !important;
+}
+
+body.usuario .tabela-scroll {
+  max-height: 420px !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+}

@@ -55,10 +55,23 @@ export default function App() {
     if (tema === "true") setTemaEscuro(true);
   }, []);
 
-  useEffect(() => {
-    document.body.className = temaEscuro ? "tema-escuro" : "";
-    localStorage.setItem("temaEscuro", temaEscuro);
-  }, [temaEscuro]);
+useEffect(() => {
+  document.body.className = "";
+
+  if (temaEscuro) {
+    document.body.classList.add("tema-escuro");
+  }
+
+  if (usuarioLogado?.tipo === "usuario") {
+    document.body.classList.add("usuario");
+  }
+
+  if (usuarioLogado?.tipo === "admin") {
+    document.body.classList.add("admin");
+  }
+
+  localStorage.setItem("temaEscuro", temaEscuro);
+}, [temaEscuro, usuarioLogado]);
 
   useEffect(() => {
     if (!usuarioLogado) return;
@@ -623,7 +636,7 @@ const produtosRecentes = [...produtos]
           </section>
         )}
 
-        <section className="lista itens-estoque">
+        <section className={`lista itens-estoque ${usuarioLogado?.tipo === "usuario" ? "usuario-lista" : ""}`}>
           <h2>Itens em estoque</h2>
 
           <input placeholder="Buscar por produto, patrimônio ou código..." value={busca} onChange={(e) => setBusca(e.target.value)} />
