@@ -17,6 +17,7 @@ export default function App() {
   const [carregando, setCarregando] = useState(false);
   const [movimento, setMovimento] = useState(null);
   const [qtdMovimento, setQtdMovimento] = useState("");
+  const [unidadesMovimento, setUnidadesMovimento] = useState("");
   const [setorDestino, setSetorDestino] = useState("");
   const [assinatura, setAssinatura] = useState("");
   const [produtoEditando, setProdutoEditando] = useState(null);
@@ -232,11 +233,12 @@ useEffect(() => {
     }
 
     const qtd = Number(qtdMovimento);
+    const unidades = Number(unidadesMovimento);
 
-    if (!qtd || qtd <= 0) {
-      alert("Digite uma quantidade válida.");
-      return;
-    }
+    if ((qtd < 0 || unidades < 0) || (qtd === 0 && unidades === 0)) {
+  alert("Digite uma quantidade válida de caixas ou unidades.");
+  return;
+}
 
     if (movimento.tipo === "saída" && setorDestino.trim() === "") {
       alert("Informe o setor de destino.");
@@ -251,18 +253,26 @@ useEffect(() => {
     const produto = movimento.produto;
 
     const novaQuantidade =
-      movimento.tipo === "entrada"
-        ? Number(produto.quantidade) + qtd
-        : Number(produto.quantidade) - qtd;
+  movimento.tipo === "entrada"
+    ? Number(produto.quantidade) + qtd
+    : Number(produto.quantidade) - qtd;
 
-    if (novaQuantidade < 0) {
-      alert("Quantidade insuficiente em estoque.");
-      return;
-    }
+const novasUnidades =
+  movimento.tipo === "entrada"
+    ? Number(produto.minimo) + unidades
+    : Number(produto.minimo) - unidades;
+
+if (novaQuantidade < 0 || novasUnidades < 0) {
+  alert("Quantidade insuficiente em estoque.");
+  return;
+}
 
     const { error: erroProduto } = await supabase
       .from("produtos")
-      .update({ quantidade: novaQuantidade })
+      .update({
+  quantidade: novaQuantidade,
+  minimo: novasUnidades
+})
       .eq("id", produto.id);
 
     if (erroProduto) {
@@ -285,6 +295,7 @@ useEffect(() => {
 
     setMovimento(null);
     setQtdMovimento("");
+    setUnidadesMovimento("");
     setSetorDestino("");
     setAssinatura("");
     carregarProdutos();
@@ -619,8 +630,8 @@ const produtosRecentes = [...produtos]
             <form onSubmit={cadastrarProduto}>
               <input placeholder="Nome do produto/material" value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} required />
               <input placeholder="Setor responsável" value={form.setor} onChange={(e) => setForm({ ...form, setor: e.target.value })} required />
-              <input type="number" placeholder="Quantidade" value={form.quantidade} onChange={(e) => setForm({ ...form, quantidade: e.target.value })} required />
-              <input type="number" placeholder="Estoque mínimo" value={form.minimo} onChange={(e) => setForm({ ...form, minimo: e.target.value })} required />
+              <input type="number" placeholder="Quantidade de Caixas" value={form.quantidade} onChange={(e) => setForm({ ...form, quantidade: e.target.value })} required />
+              <input type="number" placeholder="Quantidade de Unidades" value={form.minimo} onChange={(e) => setForm({ ...form, minimo: e.target.value })} required />
               <input placeholder="Patrimônio/Tombo" value={form.patrimonio} onChange={(e) => setForm({ ...form, patrimonio: e.target.value })} />
               <input placeholder="Código de barras / QR Code" value={form.codigo} onChange={(e) => setForm({ ...form, codigo: e.target.value })} />
              <input
@@ -647,8 +658,8 @@ const produtosRecentes = [...produtos]
               <tr>
                 <th>Produto</th>
                 <th>Setor</th>
-                <th>Qtd.</th>
-                <th>Mín.</th>
+                <th>Qtd. Caixas</th>
+                <th>Qtd. Unidades</th>
                 <th>Patrimônio</th>
                 <th>Código</th>
                 <th>Status</th>
@@ -901,7 +912,7 @@ const produtosRecentes = [...produtos]
 
         <input
           type="number"
-          placeholder="Quantidade"
+          placeholder="Quantidade de Caixas"
           value={produtoEditando.quantidade}
           onChange={(e) =>
             setProdutoEditando({
@@ -991,7 +1002,19 @@ const produtosRecentes = [...produtos]
 
             {movimento.tipo !== "excluir" && movimento.tipo !== "excluirUsuario" && (
               <>
-                <input type="number" placeholder="Digite a quantidade" value={qtdMovimento} onChange={(e) => setQtdMovimento(e.target.value)} autoFocus />
+                <input
+  type="number"
+  placeholder="Quantidade de caixas"
+  value={qtdMovimento}
+  onChange={(e) => setQtdMovimento(e.target.value)}
+/>
+
+<input
+  type="number"
+  placeholder="Quantidade de unidades"
+  value={unidadesMovimento}
+  onChange={(e) => setUnidadesMovimento(e.target.value)}
+/>
 
                 {movimento.tipo === "saída" && (
                   <input type="text" placeholder="Setor de destino" value={setorDestino} onChange={(e) => setSetorDestino(e.target.value)} />
@@ -1058,7 +1081,7 @@ const produtosRecentes = [...produtos]
 
         <input
           type="number"
-          placeholder="Quantidade"
+          placeholder="Quantidade de Caixas"
           value={produtoEditando.quantidade}
           onChange={(e) =>
             setProdutoEditando({
@@ -1071,7 +1094,7 @@ const produtosRecentes = [...produtos]
 
         <input
           type="number"
-          placeholder="Estoque mínimo"
+          placeholder="Quantidade de Unidades"
           value={produtoEditando.minimo}
           onChange={(e) =>
             setProdutoEditando({
