@@ -505,7 +505,7 @@ async function salvarEdicaoProduto(e) {
     );
   }
 const produtosRecentes = [...produtos]
-  .reverse()
+  .sort((a, b) => b.id - a.id)
   .slice(0, 5);
   const filtrados = produtos.filter(
     (p) =>
