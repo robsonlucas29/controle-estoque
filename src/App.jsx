@@ -513,7 +513,7 @@ const produtosRecentes = [...produtos]
       String(p.codigo || "").toLowerCase().includes(busca.toLowerCase()) ||
       String(p.patrimonio || "").toLowerCase().includes(busca.toLowerCase())
   );
-  const filtradosLimitados = filtrados.slice(0, 6);
+  const filtradosLimitados = filtrados.slice(0, 1000);
   const total = produtos.reduce((soma, p) => soma + Number(p.quantidade), 0);
   const baixo = produtos.filter((p) => Number(p.quantidade) <= Number(p.minimo)).length;
 
