@@ -270,3 +270,38 @@ section {
 .tabela-scroll table {
   width: 100%;
 }
+/* Deixa a área de itens em estoque larga para todos os perfis */
+.estoque-section,
+.itens-estoque,
+section:has(h2) {
+  width: 100%;
+}
+
+/* A tabela rola dentro da própria caixa */
+.tabela-scroll {
+  width: 100%;
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.tabela-scroll table {
+  min-width: 900px;
+  width: 100%;
+}
+.itens-estoque {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.tabela-scroll {
+  width: 100% !important;
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.tabela-scroll table {
+  min-width: 900px;
+  width: 100%;
+}

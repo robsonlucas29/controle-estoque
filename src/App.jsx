@@ -623,7 +623,7 @@ const produtosRecentes = [...produtos]
           </section>
         )}
 
-        <section className="lista">
+        <section className="lista itens-estoque">
           <h2>Itens em estoque</h2>
 
           <input placeholder="Buscar por produto, patrimônio ou código..." value={busca} onChange={(e) => setBusca(e.target.value)} />
