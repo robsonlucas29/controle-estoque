@@ -260,3 +260,13 @@ section {
   padding: 24px !important;
   border-radius: 14x !important;
 }
+.tabela-scroll {
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: auto;
+  padding-right: 6px;
+}
+
+.tabela-scroll table {
+  width: 100%;
+}

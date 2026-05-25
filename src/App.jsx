@@ -628,6 +628,7 @@ const produtosRecentes = [...produtos]
 
           <input placeholder="Buscar por produto, patrimônio ou código..." value={busca} onChange={(e) => setBusca(e.target.value)} />
 
+          <div className="tabela-scroll">
           <table>
             <thead>
               <tr>
@@ -692,6 +693,7 @@ const produtosRecentes = [...produtos]
               )}
             </tbody>
           </table>
+          </div>
         </section>
       </main>
 
